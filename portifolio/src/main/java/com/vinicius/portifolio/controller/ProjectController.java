@@ -1,6 +1,9 @@
 package com.vinicius.portifolio.controller;
 
-import com.vinicius.portifolio.model.dto.ProjectDTO;
+import com.vinicius.portifolio.dto.ProjectDTO;
+import com.vinicius.portifolio.service.ProjectService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,15 +12,20 @@ import java.util.List;
 @RequestMapping("/projects")
 public class ProjectController {
 
-    @GetMapping
-    public List<ProjectDTO> getProjects() {
-        return List.of(
-            new ProjectDTO("Meu Projeto TESTE", "Descrição do projeto TESTE", "Java, Spring Boot TESTE", "https://github.com/exemplo TESTE"),
-            new ProjectDTO("Projeto 2 TESTE", "Outro projeto interessante TESTE", "Angular, Node.js TESTE", "https://github.com/projeto2 TESTE")
-        );
+    private final ProjectService projectService;
+
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
     }
 
+    @GetMapping
+    public List<ProjectDTO> getProjects() {
+        return projectService.getAllProjects();
+    }
+
+    @PostMapping("/post")
+    public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO project) {
+        ProjectDTO newProject = projectService.addProject(project);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newProject);
+    }
 }
-
-
-
