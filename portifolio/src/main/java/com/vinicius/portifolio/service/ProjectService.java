@@ -12,8 +12,8 @@ public class ProjectService {
     private final List<ProjectDTO> projects = new ArrayList<>();
 
     public ProjectService() {
-        projects.add(new ProjectDTO(1L, "Portfolio Web", "Um site pessoal para exibir meus projetos"));
-        projects.add(new ProjectDTO(2L, "API de Gerenciamento", "Uma API para controle de tarefas"));
+        projects.add(new ProjectDTO(1L, "teste1", "teste1"));
+        projects.add(new ProjectDTO(2L, "teste2", "teste2"));
     }
 
     public List<ProjectDTO> getAllProjects() {
